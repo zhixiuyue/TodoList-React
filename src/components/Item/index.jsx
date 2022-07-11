@@ -1,7 +1,7 @@
 import './index.css'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteAction, modifyStateAction } from '../../redux/actions/todo_list'
+import { delete_item, modify_item } from '../../toolkit-store/features/todo_list/todoListSlice'
 
 export default function Item(props) {
 
@@ -11,14 +11,14 @@ export default function Item(props) {
     // 修改某一事项的状态
     function handleCheck(id) {
         return (e) => {
-            dispatch(modifyStateAction({ id, val: e.target.checked }))
+            dispatch(modify_item({ id, isdone: e.target.checked }))
         }
     }
 
     // 删除某一个事项
     function handleDelete(id) {
         return (e) => {
-            dispatch(deleteAction(id))
+            dispatch(delete_item({ id }))
         }
     }
 

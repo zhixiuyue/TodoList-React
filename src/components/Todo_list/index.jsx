@@ -2,12 +2,12 @@ import './index.css'
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Item from '../Item'
-import { addAction, modifyAllStateAction, deleteDoneAction } from '../../redux/actions/todo_list'
+import { add_item, modify_state, deletedone_item } from '../../toolkit-store/features/todo_list/todoListSlice'
 
 export default function Todo_list() {
 
     const dispatch = useDispatch()
-    const todoList = useSelector(state => state)
+    const todoList = useSelector(state => state.todoList)
     const [id_num, setId_Num] = useState(1)
     const [type, setType] = useState(0)
     const doneNum = todoList.reduce((pre, current) => {
@@ -22,7 +22,7 @@ export default function Todo_list() {
     // 更新所有的任务的状态
     function handleSelectAll(e) {
         const isdone = e.target.checked
-        dispatch(modifyAllStateAction(isdone))
+        dispatch(modify_state({ isdone }));
     }
 
     // 设置初始全选框值
@@ -37,7 +37,7 @@ export default function Todo_list() {
         if (keyCode !== 13) return;
         if (target.value.trim() === '') return
         const todoObj = { id: id_num, name: target.value, isdone: false }
-        dispatch(addAction(todoObj))
+        dispatch(add_item(todoObj));
         target.value = ''
         setId_Num(id_num + 1)
     }
@@ -71,7 +71,7 @@ export default function Todo_list() {
 
     // 删除选中已完成事项
     function handleClearCompleted() {
-        dispatch(deleteDoneAction())
+        dispatch(deletedone_item())
     }
 
     return (
