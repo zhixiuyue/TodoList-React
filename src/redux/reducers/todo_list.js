@@ -12,8 +12,11 @@ export default function todo_listReducer(preState = initState, action) {
             })
         case MODIFY_ITEM:
             return preState.map((todoObj) => {
-                if (todoObj.id === value.id) return { ...todoObj, isdone: value.val }
-                else return todoObj
+                if (todoObj.id === value.id) {
+                    todoObj.isdone = value.val;
+                    // return { ...todoObj, isdone: value.val }
+                }
+                return todoObj
             })
         case MODIFYSTATE:
             return preState.map((todoObj) => {
