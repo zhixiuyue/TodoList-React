@@ -22,15 +22,8 @@ export default function Item(props) {
         }
     }
 
-    // 控制高亮
-    function handleMouse(flag) {
-        return () => {
-            setMouse(flag)
-        }
-    }
-
     return (
-        <li style={{ backgroundColor: mouse ? '#ddd' : 'white' }} onMouseEnter={handleMouse(true)} onMouseLeave={handleMouse(false)}>
+        <li onMouseEnter={() => setMouse(true)} onMouseLeave={() => setMouse(false)}>
             <label>
                 <input type="checkbox" checked={props.isdone} onChange={handleCheck(props.id)} />
                 <span className="list-item">{props.name}</span>
